@@ -7,7 +7,7 @@ public class Raam___checkServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
 		resp.setContentType("text/html");
-		int num1, num2, num3;
+		int num1, num2, num3,num4=8;
 		
 		num1= 3;
 		num2= 4;
