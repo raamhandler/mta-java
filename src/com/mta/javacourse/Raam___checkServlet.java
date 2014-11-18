@@ -5,7 +5,8 @@ import javax.servlet.http.*;
 @SuppressWarnings("serial")
 public class Raam___checkServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		//exp 1
+		
+		//EX 1
 		resp.setContentType("text/html");
 		int num1, num2, num3;
 		
@@ -19,9 +20,9 @@ public class Raam___checkServlet extends HttpServlet {
 		
 				
 		resp.getWriter().println(resultStr);
-		//testing git
+	
 		
-		//ex 2
+		//EX 2
 		
 		  //part1
 		
@@ -41,8 +42,9 @@ public class Raam___checkServlet extends HttpServlet {
         String result3Str= new String("Length of opposite where angle B is 30 degrees and Hypotenuse length is 50 cm is: "+oppositeLength+" cm");
        
         //part3
-        double powerResult= Math.pow(20, 13);
-        String result4Str=new String("Power of 20 with exp of 13 is: "+powerResult );
+        
+        double powResult= Math.pow(20, 13);
+        String result4Str=new String("Power of 20 with exp of 13 is: "+powResult );
        
         String FinalStr= new String(resultStr + "<br>" + circelAreaStr + "<br>" + result3Str + "<br>" + result4Str);
         resp.getWriter().println(FinalStr);
