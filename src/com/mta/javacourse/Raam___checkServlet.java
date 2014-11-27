@@ -45,7 +45,7 @@ public class Raam___checkServlet extends HttpServlet {
         num4=20;
         num5=13;
         double powResult= Math.pow(num4, num5);
-        String result4Str=new String("Power of "+ num4+ "with exp of " + num5+ " is: "+(long) powResult );
+        String result4Str=new String("Power of "+ num4+ "with exp of " + num5+ " is: "+ (long) powResult );
        
         String FinalStr= new String(resultStr + "<br>" + circelAreaStr + "<br>" + result3Str + "<br>" + result4Str);
         resp.getWriter().println(FinalStr);
