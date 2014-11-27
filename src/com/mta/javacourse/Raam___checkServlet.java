@@ -19,7 +19,6 @@ public class Raam___checkServlet extends HttpServlet {
 		String resultStr=new String("Result of " + "(" + num1 + "+" + num2 + ")"+"*"+num3 +"="+ result) ;
 		
 				
-		resp.getWriter().println(resultStr);
 	
 		
 		//EX 2
@@ -30,7 +29,7 @@ public class Raam___checkServlet extends HttpServlet {
         double radius;
         radius = 50;
         circelArea = Math.pow(radius, 2) * Math.PI;
-        String circelAreaStr = new String("Area of circle with radius"+radius+"is"+circelArea+" square CM");
+        String circelAreaStr = new String("Area of circle with radius "+radius+" is "+circelArea);
        
         //part2
         
@@ -39,15 +38,20 @@ public class Raam___checkServlet extends HttpServlet {
         int hypotenuse= 50;
         angleB= Math.toRadians(angleB);
         oppositeLength= Math.sin(angleB)*hypotenuse;
-        String result3Str= new String("Length of opposite where angle B is 30 degrees and Hypotenuse length is 50 cm is: "+oppositeLength+" cm");
+        String result3Str= new String("Length of opposite where angle B is "+ angleB + " degrees and Hypotenuse length is "+ hypotenuse+ " cm is: "+   oppositeLength+" cm");
        
         //part3
-        
-        double powResult= Math.pow(20, 13);
-        String result4Str=new String("Power of 20 with exp of 13 is: "+powResult );
+        int num4, num5;
+        num4=20;
+        num5=13;
+        double powResult= Math.pow(num4, num5);
+        String result4Str=new String("Power of "+ num4+ "with exp of " + num5+ " is: "+(long) powResult );
        
         String FinalStr= new String(resultStr + "<br>" + circelAreaStr + "<br>" + result3Str + "<br>" + result4Str);
         resp.getWriter().println(FinalStr);
 		
 	}
+	
+		
+	
 }
