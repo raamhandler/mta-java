@@ -17,11 +17,10 @@ public class Raam___checkServlet extends HttpServlet {
 		int result = (num1+num2)*num3;
 		
 		String resultStr=new String("Result of " + "(" + num1 + "+" + num2 + ")"+"*"+num3 +"="+ result) ;
-		
 				
 	
 		
-		//EX 2
+		//EX 3
 		
 		  //part1
 		
@@ -53,5 +52,6 @@ public class Raam___checkServlet extends HttpServlet {
 	}
 	
 		
+	
 	
 }
