@@ -4,9 +4,12 @@ package com.mta.javacourse;
 import java.io.IOException;
  
 
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.mta.javacourse.model.Stock;
  
 @SuppressWarnings("serial")
 public class StockServlet extends HttpServlet {

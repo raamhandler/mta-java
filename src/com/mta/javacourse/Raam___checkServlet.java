@@ -6,7 +6,7 @@ import javax.servlet.http.*;
 public class Raam___checkServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
-		//EX 1
+		//EX 2
 		resp.setContentType("text/html");
 		int num1, num2, num3;
 		
