@@ -19,7 +19,17 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>StockServlet</servlet-name>
-		<url-pattern>/stockservlet</url-pattern>
+		<url-pattern>/stockServlet</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>ProtfolioServlet</servlet-name>
+		<servlet-class>com.mta.javacourse.Servlet.ProtfololioServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProtfolioServlet</servlet-name>
+		<url-pattern>/protfolioservlet</url-pattern>
 	</servlet-mapping>
 	
 	
