@@ -4,35 +4,16 @@ xmlns="http://java.sun.com/xml/ns/javaee"
 xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
-	<servlet>
-		<servlet-name>Raam___check</servlet-name>
-		<servlet-class>com.mta.javacourse.Raam___checkServlet</servlet-class>
+
+<servlet>
+		<servlet-name>PortfolioServlet</servlet-name>
+		<servlet-class>com.mta.javacourse.servlet.PortfolioServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Raam___check</servlet-name>
-		<url-pattern>/raam___check</url-pattern>
+		<servlet-name>PortfolioServlet</servlet-name>
+		<url-pattern>/portfolio</url-pattern>
 	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>StockServlet</servlet-name>
-		<servlet-class>com.mta.javacourse.StockServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>StockServlet</servlet-name>
-		<url-pattern>/stockServlet</url-pattern>
-	</servlet-mapping>
-	
-	
-	<servlet>
-		<servlet-name>ProtfolioServlet</servlet-name>
-		<servlet-class>com.mta.javacourse.Servlet.ProtfololioServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ProtfolioServlet</servlet-name>
-		<url-pattern>/protfolioservlet</url-pattern>
-	</servlet-mapping>
-	
-	
+
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>

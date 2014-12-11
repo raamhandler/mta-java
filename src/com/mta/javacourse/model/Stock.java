@@ -1,55 +1,79 @@
 package com.mta.javacourse.model;
 
+import java.util.Date;
+
 
 public class Stock {
 	
     private String stockSymbol;
 	private float askOfType;
-	private float Bid;
-	private java.util.Date Date;
+	private float bid;
+	private java.util.Date date;
 	
-	// stockSymbol get & set
+	public Stock()
+	{
+		stockSymbol = " ";
+		askOfType = 0;
+		bid = 0;
+		date = new Date();
+	}
+
+	// copy c`tor:
 	
-	 public String stockSymbol() {
+	public Stock (String symbol, float ask, float bid, Date date)
+	{
+		this();
+		setSymbol(symbol);
+		setAskOfType(ask);
+		setBid(bid);
+		setDate(date);
+	}
+	
+	public Stock (Stock stock)
+	{
+		this (stock.getStockSymbol(), stock.getAskOfType(), stock.getBid(), stock.getDate());
+	}
+	
+	
+	//  Getter & Setter:
+	
+	public String stockSymbol() {
          return stockSymbol;
- }
-	 public void setSymbol(String symbol) {
+	}
+	public String getStockSymbol() {
+		return stockSymbol;
+	}
+	public void setStockSymbol(String stockSymbol) {
+		this.stockSymbol = stockSymbol;
+	}
+	public float getAskOfType() {
+		return askOfType;
+	}
+	public void setAskOfType(float askOfType) {
+		this.askOfType = askOfType;
+	}
+	public float getBid() {
+		return bid;
+	}
+	public void setSymbol(String symbol) {
 		 stockSymbol = symbol;
- }
+	} 
+	 public java.util.Date getDate() {
+		return date;
+	}
+	public void setDate(java.util.Date date) {
+		this.date = date;
+	}
 
-	 // askOfType get & set
-	 
- 	public float askOfType() {
-         return askOfType;
- }
- 	public void setAsk(float ask) {
-	 askOfType = ask;
- }
-
- 	//BID get & set
- 	
- 	public float Bid() {
-         return Bid;
- }
- 	public void setBid(float bid) {
-         Bid = bid;
- }
-
- 	//DATE
- 	
- 	public java.util.Date getDate() {
-         return Date;
- }
- 	public void setDate(java.util.Date date) {
-         Date = date;
- }
-
+	public void setBid(float bid) {
+		this.bid = bid;
+	} 
  	
  	public String getHtmlDescription()
- { 		
-         String stockHtmlDetailsString = "<b>Stock symbol</b>: " +stockSymbol() + "<b> Stock Ask</b>: " +askOfType() + "<b> Bid</b>: " +Bid() + "<b> Stock Date</b>: " +getDate();
+ 	{ 		
+         String stockHtmlDetailsString = "<b>Stock symbol</b>: " +getStockSymbol() + "<b> Stock Ask</b>: " +getAskOfType() + "<b> Bid</b>: " +getBid() + "<b> Stock Date</b>: " +getDate();
          return stockHtmlDetailsString;
- }
+ 	}
 
 }
 	
