@@ -47,8 +47,8 @@ public class Portfolio {
 	}
 
 	
-	 // function for adding new stock in the portfolio
-	
+	 /** function for adding new stock in the portfolio
+	*/
 	public void addStock(Stock stock)
 	{
 		if (portfolioSize < MAX_PORFOLIO_SIZE)
@@ -59,8 +59,9 @@ public class Portfolio {
 		}
 	}
 	
-	//  function for removing a specific stock -from portfolio (according to symbolStock)
-	 
+	/** function for removing a specific stock -from portfolio (according to symbolStock)
+	 */
+	
     public void removeStock(Stock stock)
     {
             for(int i = 0; i < portfolioSize; i++)
@@ -120,7 +121,8 @@ public class Portfolio {
 		return res;
 	}
 	
-	 // an inner class for- storing stock status
+	 /** an inner class for- storing stock status
+	*/
 	
 	public class StockStatus {
 
