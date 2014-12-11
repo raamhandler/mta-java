@@ -1,4 +1,4 @@
-package com.mta.javacourse.Servlet;
+package com.mta.javacourse.servlet;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
