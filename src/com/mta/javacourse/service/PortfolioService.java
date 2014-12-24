@@ -22,20 +22,24 @@ public class PortfolioService {
                 Date date = c.getTime();
                
                 s1.setSymbol("PIH");
-                s1.setAskOfType(12.4f);
-                s1.setBid(13.1f);
+                s1.setAskOfType(10f);
+                s1.setBid(8.5f);
                 s1.setDate(date);
- 
+                s1.setQuantity(20);
+                
                 s2.setSymbol("AAL");
-                s2.setAskOfType(5.5f);
-                s2.setBid(5.78f);
+                s2.setAskOfType(30f);
+                s2.setBid(25.5f);
                 s2.setDate(date);
- 
+                s2.setQuantity(30);
+                
+                
                 s3.setSymbol("CAAS");
-                s3.setAskOfType(31.5f);
-                s3.setBid(31.2f);
+                s3.setAskOfType(20f);
+                s3.setBid(15.5f);
                 s3.setDate(date);
- 
+                s3.setQuantity(40);
+                
                 myPortfolio.addStock(s1);
                 myPortfolio.addStock(s2);
                 myPortfolio.addStock(s3);

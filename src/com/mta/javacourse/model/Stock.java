@@ -9,7 +9,16 @@ public class Stock {
 	private float askOfType;
 	private float bid;
 	private java.util.Date date;
+	private float quantity;
 	
+	public float getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(float quantity) {
+		this.quantity = quantity;
+	}
+
 	public Stock()
 	{
 		stockSymbol = " ";
