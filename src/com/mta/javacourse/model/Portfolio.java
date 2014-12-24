@@ -6,6 +6,7 @@ import java.util.Date;
  * Class :  Creating a stock & portfolio 
  * @author Raam Handler
  */
+
 public class Portfolio {
 
 	public final static int MAX_PORFOLIO_SIZE = 5;
@@ -259,7 +260,7 @@ public class Portfolio {
 	}
 	
 	/** 
-	 * sellStock is similar to buyStock, it purpose is to sell stocks but not to remove them from the portfolio.
+	 *  buy Stock, it purpose is to sell stocks but not to remove them from the portfolio.
 	 * The first loop is used to identify that the stock is actually in the stocks' array.
 	 * "-1" to sell all stocks
 	 * @param symbol
@@ -417,6 +418,11 @@ public class Portfolio {
 		
 		// Setter & Getter:
 		
+		private void setRecommendation(ALGO_RECOMMENDATION recommendation2) {
+			// TODO Auto-generated method stub
+			
+		}
+
 		public String getSymbol() {
 			return symbol;
 		}
@@ -442,9 +448,6 @@ public class Portfolio {
 			this.date = date;
 		}
 	
-		public void setRecommendation(Enum<ALGO_RECOMMENDATION> recommendation2) {
-			this.recommendation = recommendation2;
-		}
 		public int getStockQuantity() {
 			return stockQuantity;
 		}
