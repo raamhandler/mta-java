@@ -10,40 +10,44 @@ import com.mta.javacourse.model.Stock;
 
 public class PortfolioService {
  
-        Stock s1 = new Stock();
-        Stock s2 = new Stock();
-        Stock s3 = new Stock();
-  
-        public Portfolio getPortfolio ()
-        {
-                Portfolio myPortfolio = new Portfolio();
-                Calendar c = Calendar.getInstance();
-                c.set (2014, 12,11, 0, 0, 0);
-                Date date = c.getTime();
-               
-                s1.setSymbol("PIH");
-                s1.setAskOfType(10f);
-                s1.setBid(8.5f);
-                s1.setDate(date);
-                s1.setQuantity(20);
-                
-                s2.setSymbol("AAL");
-                s2.setAskOfType(30f);
-                s2.setBid(25.5f);
-                s2.setDate(date);
-                s2.setQuantity(30);
-                
-                
-                s3.setSymbol("CAAS");
-                s3.setAskOfType(20f);
-                s3.setBid(15.5f);
-                s3.setDate(date);
-                s3.setQuantity(40);
-                
-                myPortfolio.addStock(s1);
-                myPortfolio.addStock(s2);
-                myPortfolio.addStock(s3);
-               
-                return myPortfolio;
+
+
+        	public Portfolio getPortfolio() 
+        	{
+
+        		Portfolio myPortfolio= new Portfolio();
+        		Stock stock1=new Stock();
+        		Stock stock2=new Stock();
+        		Stock stock3=new Stock();
+
+        		stock1.setSymbol("PIH");
+        		stock1.setAskOfType((float) 10);
+        		stock1.setBid((float) 8.5);
+        		stock1.setDate(new Date(114,11,15));
+        		
+        		
+        		stock2.setSymbol("AAL");
+        		stock2.setAskOfType((float) 30);
+        		stock2.setBid((float) 25.5);
+        		stock2.setDate(new Date(114,11,15));
+        		
+        		stock3.setSymbol("CAAS");
+        		stock3.setAskOfType((float) 20);
+        		stock3.setBid((float) 15.5);
+        		stock3.setDate(new Date(114,11,15));
+        		
+        		myPortfolio.updateBalance(10000);
+        		myPortfolio.addStock(stock1);
+        		myPortfolio.addStock(stock2);
+        		myPortfolio.addStock(stock3);
+
+        		myPortfolio.title = "Exercise 7 portfolio";
+        		myPortfolio.buyStock("PIH", 20);
+        		myPortfolio.buyStock("AAL", 30);
+        		myPortfolio.buyStock("CAAS", 40);
+        		myPortfolio.sellStock("AAL", -1);
+        		myPortfolio.removeStock("CAAS");
+
+        		return myPortfolio;
+        	}
         }
-}

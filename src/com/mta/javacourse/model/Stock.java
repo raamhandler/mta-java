@@ -80,7 +80,11 @@ public class Stock {
  	
  	public String getHtmlDescription()
  	{ 		
-         String stockHtmlDetailsString = "<b>Stock symbol</b>: " +getStockSymbol() + "<b> Stock Ask</b>: " +getAskOfType() + "<b> Bid</b>: " +getBid() + "<b> Stock Date</b>: " +getDate();
+         String stockHtmlDetailsString =
+        		 "<b>Stock symbol</b>: "+getStockSymbol()
+        		 + "<b> Stock Ask</b>: " +getAskOfType()
+        		 + "<b> Bid</b>: " +getBid()
+        		 + "<b> Stock Date</b>: " +getDate();
          return stockHtmlDetailsString;
  	}
 

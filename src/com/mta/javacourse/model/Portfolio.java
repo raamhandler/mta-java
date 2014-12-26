@@ -6,12 +6,11 @@ import java.util.Date;
  * Class :  Creating a stock & portfolio 
  * @author Raam Handler
  */
-
 public class Portfolio {
 
 	public final static int MAX_PORFOLIO_SIZE = 5;
 
-	private String title;
+	public String title;
 	private int portfolioSize;
 	private Stock[] stocks;
 	private StockStatus[] stocksStatus;
@@ -359,7 +358,7 @@ public class Portfolio {
 	 * @return A string with the information of all stocks.
 	 */
 	
-	public String getHtmlString1()
+	public String getHtmlString()
 	{
 		String HtmlString= new String("<h1><u>"+title+"</u></h1>"); 
 		for (int i = 0; i < portfolioSize; i++) 
@@ -373,6 +372,7 @@ public class Portfolio {
 
 		return HtmlString;
 	}
+	
 	
 	 /** an inner class for- storing stock status
 	*/
