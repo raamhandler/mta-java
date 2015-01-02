@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mta.javacourse.model.Portfolio;
-import com.mta.javacourse.model.Stock;
 import com.mta.javacourse.service.PortfolioService;
  
 
