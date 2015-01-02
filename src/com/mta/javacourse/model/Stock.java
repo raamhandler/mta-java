@@ -3,13 +3,34 @@ package com.mta.javacourse.model;
 import java.util.Date;
 
 
+import sun.util.resources.CalendarData;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+
+
 public class Stock {
 	
-    private String stockSymbol;
-	private float askOfType;
-	private float bid;
-	private java.util.Date date;
-	private float quantity;
+	protected String stockSymbol;
+    protected float ask;
+	protected float bid;
+	public float getAsk() {
+		return ask;
+	}
+
+	public void setAsk(float ask) {
+		this.ask = ask;
+	}
+
+	protected  java.util.Date date;
+	protected  float quantity;
+	
+	protected Calendar cal = Calendar.getInstance();
+	protected java.util.Date date = cal.getTime(); 
+
+	DateFormat dateFt = new SimpleDateFormat("dd/MM/yy");
+
 	
 	public float getQuantity() {
 		return quantity;
@@ -19,13 +40,13 @@ public class Stock {
 		this.quantity = quantity;
 	}
 
-	public Stock()
-	{
-		stockSymbol = " ";
-		askOfType = 0;
-		bid = 0;
-		date = new Date();
+	public Stock() {
+		this.stockSymbol = "";
+		this.ask = 0;
+		this.bid = 0;
 	}
+
+
 
 	// copy c`tor:
 	
@@ -33,14 +54,14 @@ public class Stock {
 	{
 		this();
 		setSymbol(symbol);
-		setAskOfType(ask);
+		setAsk(ask);
 		setBid(bid);
 		setDate(date);
 	}
 	
 	public Stock (Stock stock)
 	{
-		this (stock.getStockSymbol(), stock.getAskOfType(), stock.getBid(), stock.getDate());
+		this (stock.getStockSymbol(), stock.getAsk(), stock.getBid(), stock.getDate());
 	}
 	
 	
@@ -55,12 +76,7 @@ public class Stock {
 	public void setStockSymbol(String stockSymbol) {
 		this.stockSymbol = stockSymbol;
 	}
-	public float getAskOfType() {
-		return askOfType;
-	}
-	public void setAskOfType(float askOfType) {
-		this.askOfType = askOfType;
-	}
+
 	public float getBid() {
 		return bid;
 	}
@@ -82,7 +98,7 @@ public class Stock {
  	{ 		
          String stockHtmlDetailsString =
         		 "<b>Stock symbol</b>: "+getStockSymbol()
-        		 + "<b> Stock Ask</b>: " +getAskOfType()
+        		 + "<b> Stock Ask</b>: " +getAsk()
         		 + "<b> Bid</b>: " +getBid()
         		 + "<b> Stock Date</b>: " +getDate();
          return stockHtmlDetailsString;

@@ -18,16 +18,13 @@ import java.io.IOException;
 
 		public void doGet(HttpServletRequest req, HttpServletResponse resp)
 				throws IOException {
+
+			PortfolioService portfolioService = new PortfolioService();
+			Portfolio portfolio = portfolioService.getPortfolio();
 			resp.setContentType("text/html");
-			{
 
-				PortfolioService portfolioService = new PortfolioService();
-				Portfolio portfolio = portfolioService.getPortfolio();
-				@SuppressWarnings("unused")
-				Stock[] stocks = portfolio.getStocks();
-
-				resp.getWriter().println(portfolio.getHtmlString());
-				
-			}
+			//printing portfolio
+			String portfolioPage = portfolio.getHtmlString();
+			resp.getWriter().println(portfolioPage);
 		}
 	}
