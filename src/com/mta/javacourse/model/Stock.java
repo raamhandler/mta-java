@@ -19,6 +19,22 @@ public class Stock {
 		return ask;
 	}
 
+	public Calendar getCal() {
+		return cal;
+	}
+
+	public void setCal(Calendar cal) {
+		this.cal = cal;
+	}
+
+	public DateFormat getDateFt() {
+		return dateFt;
+	}
+
+	public void setDateFt(DateFormat dateFt) {
+		this.dateFt = dateFt;
+	}
+
 	public void setAsk(float ask) {
 		this.ask = ask;
 	}

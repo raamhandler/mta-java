@@ -1,14 +1,22 @@
 package com.mta.javacourse.model;
 
 import java.util.Date;
+import java.util.logging.Logger;
+
+import com.mta.javacourse.exception.BalanceException;
+import com.mta.javacourse.exception.PortfolioFullException;
+import com.mta.javacourse.exception.StockAlreadyExistsException;
+import com.mta.javacourse.exception.StockNotExistException;
 
 /**
  * Class :  Creating a stock & portfolio 
  * @author Raam Handler
  */
 public class Portfolio {
-
+	@SuppressWarnings("unused")
+	private static final Logger log = Logger.getLogger(Portfolio.class.getSimpleName());
 	public final static int MAX_PORFOLIO_SIZE = 5;
+	private static final int MAX_PROTFOLIO_SIZE = 0;
 	public enum ALGO_RECOMMENDATION {DO_NOTHING, BUY, SELL};
 
 	private String title;
@@ -19,110 +27,105 @@ public class Portfolio {
 	/**
 	 * c'tor for initializing portfolio members
 	 */
-	public Portfolio() {
-		portfolioSize = 0;
-		balance = 0;
-		setTitle("");
-		stockStatus = new StockStatus[MAX_PORFOLIO_SIZE];
+	public Portfolio( StockStatus[] newStockStatus, int newPortfolioSize, String newTitle, float newBalance) {
+		stockStatus = newStockStatus;	
+		portfolioSize = newPortfolioSize;
+		title = newTitle;
+		balance = newBalance;
 	}
+	
 
 	/**
 	 * cto'r which receives a title and calls 1st cto'r for setting it
 	 * 
 	 * @param title
 	 */
-	public Portfolio(String title) {
-		this();
-		this.setTitle(title);
+	public Portfolio (Portfolio portfolio)
+	{
+		this( new StockStatus[MAX_PROTFOLIO_SIZE], 0, "UNKNOWE",0);
+		
+		for(int i = 0; i < portfolio.portfolioSize ; i++){
+			stockStatus[i] = new StockStatus(portfolio.stockStatus[i]);
+		}
+		this.setTitle(portfolio.getTitle());
+		this.portfolioSize = portfolio.portfolioSize;
+		this.balance = portfolio.balance;
+		
 	}
 
-	/**
-	 * copy c'tor for making instance copies of Portfolio object
-	 * 
-	 * @param portfolio
-	 */
-	public Portfolio(Portfolio portfolio) {
-		this(portfolio.getTitle());
-		setPortfolioSize(portfolio.getPortfolioSize());
-
-		for (int i = 0; i < portfolioSize; i++)
-			stockStatus[i] = new StockStatus(portfolio.getStocksStatus()[i]);
-	}
-
+	
 	/**
 	 * function for adding new stock to portfolio within portfolio size limits
 	 * 
 	 * @param stock
 	 */
-	public void addStock(Stock stock) {
-		for (int i = 0; i < portfolioSize; i++)
-			if (stock.getStockSymbol().equals(stockStatus[i].getStockSymbol()))
-			{
-				System.out.println("Stock Already Exists in Portfolio");
-				return;
+	public void addStock(Stock stock) throws StockAlreadyExistsException, PortfolioFullException{
+		if(this.portfolioSize<MAX_PROTFOLIO_SIZE){
+			for(int i=0; i<=portfolioSize-1; i++){
+				if(stock.getStockSymbol().equals(this.stockStatus[i].getStockSymbol())){
+					log.warning("Sorry, Stock " + stock.getStockSymbol() + " already exists");
+					throw new StockAlreadyExistsException(stock.getStockSymbol());
+				}
 			}
-
-		if (portfolioSize < MAX_PORFOLIO_SIZE) 
-		{
-			this.stockStatus[portfolioSize] = new StockStatus();
-			this.stockStatus[portfolioSize].setSymbol(stock.getStockSymbol());
-			this.stockStatus[portfolioSize].setAsk(stock.getAsk());
-			this.stockStatus[portfolioSize].setBid(stock.getBid());
-			this.stockStatus[portfolioSize].setDate(new Date(stock.date.getTime()));
+			stockStatus[portfolioSize] = new StockStatus(stock.getStockSymbol(), stock.getAsk(), stock.getBid(), stock.getDate(),0 ,ALGO_RECOMMENDATION.DO_NOTHING);
 			portfolioSize++;
-		} else
-			System.out.println("Can't add new stock, Portfolio can have only " + portfolioSize + " stocks");
+		}
+		else{
+			log.warning("Sorry, You had reached maximum portfolio size [" + MAX_PROTFOLIO_SIZE + "]");
+			throw new PortfolioFullException();
+		}
 	}
+	
+	
 
 	/**
 	 * function for removing a specific stock from portfolio (according to its symbol)
 	 * 
 	 * @param stock
 	 */
-	public boolean removeStock(String symbol) {
-		sellStock(symbol, -1);
-		for (int i = 0; i < portfolioSize; i++)
-			if (symbol.equals(stockStatus[i].getStockSymbol()))
-			{
-				stockStatus[i] = stockStatus[portfolioSize - 1];
-				stockStatus[portfolioSize - 1] = null;
-				stockStatus[i] = stockStatus[portfolioSize - 1];
-				stockStatus[portfolioSize - 1] = null;
-				portfolioSize--;
-				return true;
-			} 
-		return false;
+	public void removeStock(String symbol) throws StockNotExistException{
+		for(int i = 0; i<=portfolioSize-1; i++){
+			if(symbol.equals(this.stockStatus[i].getStockSymbol())){
+				this.sellStock(symbol,-1);
+				this.portfolioSize--;
+				for(int j=i; j<=portfolioSize-1; j++){
+					this.stockStatus[j] = this.stockStatus[j+1];
+					
+				}
+				
+			}
+					
+		}
+		log.warning("Sorry, The stock isnt exist");
+		throw new StockNotExistException();
 	}
-	/**
+		
+		
+		/**
 	 * function for selling stocks and updating portfolio balance
 	 * 
 	 * @param symbol
 	 * @param quantity
 	 * @return
 	 */
-	public boolean sellStock (String symbol, int quantity)
-	{
-		for (int i = 0; i < portfolioSize; i++)
-			if (symbol.equals(stockStatus[i].getStockSymbol()))
-			{
-				if (quantity == -1)
-				{
-					float sellProfit = stockStatus[i].getStockQuantity()*stockStatus[i].getBid();
-					updateBalance(sellProfit);
-					stockStatus[i].setStockQuantity(0);
+	public void sellStock(String symbol, int qu) throws StockNotExistException{
+		for(int i=0; i<=portfolioSize-1 ; i++ ){
+			
+			if(symbol.equals(this.stockStatus[i].getStockSymbol()) && qu == -1 ||symbol.equals(this.stockStatus[i].getStockSymbol()) && this.stockStatus[i].getStockQuantity() == qu){
+				this.updateBalance(this.stockStatus[i].bid*this.stockStatus[i].getStockQuantity());
+				this.stockStatus[i].setStockQuantity(0);
 				}
-				else if ((stockStatus[i].getStockQuantity()-quantity) >= 0)
-				{
-					stockStatus[i].setStockQuantity(stockStatus[i].getStockQuantity()-quantity);
-					float sellProfit1 = stockStatus[i].getStockQuantity() * stockStatus[i].getBid();
-					updateBalance(sellProfit1);
-				}
-				else if ((stockStatus[i].getStockQuantity()-quantity < 0))
-					System.out.println("Error->Your Stock Quantity is lower than requested");
-				return true;
+			
+			else if(symbol.equals(this.stockStatus[i].getStockSymbol()) && this.stockStatus[i].getStockQuantity()>qu){
+				this.updateBalance(this.stockStatus[i].bid*qu);
+				this.stockStatus[i].setStockQuantity(-qu);
 			}
-		return false;
+			else
+	
+				log.warning("Sorry, The stock does not exist");
+				throw new StockNotExistException();
 	}
+	
 	/**
 	 * function for buying stocks and updating portfolio balance
 	 * 
@@ -130,29 +133,27 @@ public class Portfolio {
 	 * @param quantity
 	 * @return
 	 */
-	public boolean buyStock (String symbol, int quantity)
-	{
-		for (int i = 0; i < portfolioSize; i++)
-			if (symbol.equals(stockStatus[i].getStockSymbol()))
-			{
-				if (quantity == -1)
-				{
-					int amountToBuy = (int)(balance/stockStatus[i].getAsk());
-					stockStatus[i].setStockQuantity(stockStatus[i].getStockQuantity()+amountToBuy);
-					float buyValue = (stockStatus[i].getStockQuantity() * stockStatus[i].getAsk()) * (-1);
-					updateBalance(buyValue);
+		public void buyStock(String symbol, int qu) throws BalanceException, StockNotExistException{
+			for(int i=0; i<=portfolioSize-1; i++ ){
+			
+				if(symbol.equals(this.stockStatus[i].getStockSymbol()) && qu == -1){
+					this.stockStatus[i].setStockQuantity((int)(this.balance/this.stockStatus[i].ask));
+					this.updateBalance(-1*this.stockStatus[i].ask*this.stockStatus[i].getStockQuantity());
 				}
-				else if (quantity >= 1)
-				{
-					stockStatus[i].setStockQuantity(stockStatus[i].getStockQuantity()+quantity);
-					float buyValueX = (quantity * stockStatus[i].getAsk()) * (-1);
-					updateBalance(buyValueX);
+				
+				else if(symbol.equals(this.stockStatus[i].getStockSymbol()) && this.balance>this.stockStatus[i].ask*qu){
+					this.stockStatus[i].setStockQuantity(qu);
+					this.updateBalance(this.stockStatus[i].ask*qu*-1);
 				}
-				return true;
+			
+				else if (symbol.equals(this.stockStatus[i].getStockSymbol()) && this.balance<this.stockStatus[i].ask*qu){
+					log.warning("Sorry, You do not have enough balane to buy this stock");
+					throw new BalanceException();
+				}
 			}
-		return false;
-	}
-
+			log.warning("Sorry, The stock does not exist");
+			throw new StockNotExistException();
+		}
 	/**
 	 * function for updating balance when buying/selling stocks
 	 * 
@@ -201,6 +202,10 @@ public class Portfolio {
 	}
 
 	// Setters & Getters-->
+	
+	public StockStatus[] getStock(){
+		return stockStatus;
+	}
 
 	public StockStatus[] getStocksStatus() {
 		return stockStatus;
