@@ -33,6 +33,7 @@ public Portfolio getPortfolio() throws StockAlreadyExistsException, PortfolioFul
 		StockStatus stock1,stock2, stock3;
 		
 		Date date = new Date();
+		
 		stock1 = new StockStatus("PIH",(float)10,(float)8.5,date,0,ALGO_RECOMMENDATION.DO_NOTHING);
 		myPortfolio.addStock(stock1);
 		

@@ -13,51 +13,48 @@ import com.mta.javacourse.exception.StockNotExistException;
  * @author Raam Handler
  */
 public class Portfolio {
-	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(Portfolio.class.getSimpleName());
-	public final static int MAX_PORFOLIO_SIZE = 5;
-	private static final int MAX_PROTFOLIO_SIZE = 0;
-	public enum ALGO_RECOMMENDATION {DO_NOTHING, BUY, SELL};
-
-	private String title;
-	private int portfolioSize;
-	private float balance;
+	private final static int MAX_PROTFOLIO_SIZE = 5;
 	private StockStatus[] stockStatus;
+	private int portfolioSize = 0;
+	private String title;
+	private float balance;
+
 
 	/**
 	 * c'tor for initializing portfolio members
 	 */
-	public Portfolio() {
-		portfolioSize = 0;
-		balance = 0;
-		setTitle("");
-		stockStatus = new StockStatus[MAX_PORFOLIO_SIZE];
+	public Portfolio( StockStatus[] newStockStatus, int newPortfolioSize, String newTitle, float newBalance) {
+		stockStatus = newStockStatus;	
+		portfolioSize = newPortfolioSize;
+		title = newTitle;
+		balance = newBalance;
 	}
-
-	/**
-	 * cto'r which receives a title and calls 1st cto'r for setting it
-	 * 
-	 * @param title
-	 */
-	public Portfolio(String title) {
-		this();
-		this.setTitle(title);
-	}
+	
 
 	/**
 	 * copy c'tor for making instance copies of Portfolio object
 	 * 
 	 * @param portfolio
 	 */
-	public Portfolio(Portfolio portfolio) {
+	public Portfolio(Portfolio portfolio)
+	{
+		this( new StockStatus[MAX_PROTFOLIO_SIZE], 0, "UNKNOWE",0);
+		
+		for(int i = 0; i < portfolio.portfolioSize ; i++){
+			stockStatus[i] = new StockStatus(portfolio.stockStatus[i]);
+		}
 		this.setTitle(portfolio.getTitle());
-		this.setPortfolioSize(portfolio.getPortfolioSize());
-		this.setBalance(portfolio.getBalance());
+		this.portfolioSize = portfolio.portfolioSize;
+		this.balance = portfolio.balance;
 
-		for (int i = 0; i < portfolioSize; i++)
-			stockStatus[i] = new StockStatus(portfolio.getStocksStatus()[i]);
+		
 	}
-
+	
+	public enum ALGO_RECOMMENDATION {
+		DO_NOTHING,SELL,BUY;
+	}
+	
 	/**
 	 * function for adding new stock to portfolio within portfolio size limits
 	 * 
