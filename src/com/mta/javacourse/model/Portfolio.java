@@ -27,33 +27,37 @@ public class Portfolio {
 	/**
 	 * c'tor for initializing portfolio members
 	 */
-	public Portfolio( StockStatus[] newStockStatus, int newPortfolioSize, String newTitle, float newBalance) {
-		stockStatus = newStockStatus;	
-		portfolioSize = newPortfolioSize;
-		title = newTitle;
-		balance = newBalance;
+	public Portfolio() {
+		portfolioSize = 0;
+		balance = 0;
+		setTitle("");
+		stockStatus = new StockStatus[MAX_PORFOLIO_SIZE];
 	}
-	
 
 	/**
 	 * cto'r which receives a title and calls 1st cto'r for setting it
 	 * 
 	 * @param title
 	 */
-	public Portfolio (Portfolio portfolio)
-	{
-		this( new StockStatus[MAX_PROTFOLIO_SIZE], 0, "UNKNOWE",0);
-		
-		for(int i = 0; i < portfolio.portfolioSize ; i++){
-			stockStatus[i] = new StockStatus(portfolio.stockStatus[i]);
-		}
-		this.setTitle(portfolio.getTitle());
-		this.portfolioSize = portfolio.portfolioSize;
-		this.balance = portfolio.balance;
-		
+	public Portfolio(String title) {
+		this();
+		this.setTitle(title);
 	}
 
-	
+	/**
+	 * copy c'tor for making instance copies of Portfolio object
+	 * 
+	 * @param portfolio
+	 */
+	public Portfolio(Portfolio portfolio) {
+		this.setTitle(portfolio.getTitle());
+		this.setPortfolioSize(portfolio.getPortfolioSize());
+		this.setBalance(portfolio.getBalance());
+
+		for (int i = 0; i < portfolioSize; i++)
+			stockStatus[i] = new StockStatus(portfolio.getStocksStatus()[i]);
+	}
+
 	/**
 	 * function for adding new stock to portfolio within portfolio size limits
 	 * 
@@ -92,7 +96,7 @@ public class Portfolio {
 					this.stockStatus[j] = this.stockStatus[j+1];
 					
 				}
-				
+			
 			}
 					
 		}
@@ -108,22 +112,23 @@ public class Portfolio {
 	 * @param quantity
 	 * @return
 	 */
-	public void sellStock(String symbol, int qu) throws StockNotExistException{
+	public void sellStock(String symbol, int qu) throws StockNotExistException,StockNotExistException{
 		for(int i=0; i<=portfolioSize-1 ; i++ ){
-			
-			if(symbol.equals(this.stockStatus[i].getStockSymbol()) && qu == -1 ||symbol.equals(this.stockStatus[i].getStockSymbol()) && this.stockStatus[i].getStockQuantity() == qu){
-				this.updateBalance(this.stockStatus[i].bid*this.stockStatus[i].getStockQuantity());
-				this.stockStatus[i].setStockQuantity(0);
+			if(symbol.equals(this.stockStatus[i].getStockSymbol()) && qu == -1 ||symbol.equals(this.stockStatus[i].getStockSymbol()) && this.stockStatus[i].getQuantity() == qu){
+				this.updateBalance(this.stockStatus[i].bid*this.stockStatus[i].getQuantity());
+				this.stockStatus[i].setQuantity(0);
 				}
-			
-			else if(symbol.equals(this.stockStatus[i].getStockSymbol()) && this.stockStatus[i].getStockQuantity()>qu){
+			else if(symbol.equals(this.stockStatus[i].getStockSymbol()) && this.stockStatus[i].getQuantity()>qu){
 				this.updateBalance(this.stockStatus[i].bid*qu);
-				this.stockStatus[i].setStockQuantity(-qu);
+				this.stockStatus[i].setQuantity(-qu);
 			}
-			else
-	
-				log.warning("Sorry, The stock does not exist");
+			else if(symbol.equals(this.stockStatus[i].getStockSymbol()) && this.stockStatus[i].getQuantity()<qu){
+				log.warning("Sorry, You do not have enough from this stock");
 				throw new StockNotExistException();
+			}
+		}
+		log.warning("Sorry, The stock does not exist");
+		throw new StockNotExistException();
 	}
 	
 	/**

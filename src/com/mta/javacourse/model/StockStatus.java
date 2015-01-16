@@ -20,17 +20,17 @@ public class StockStatus extends Stock  {
 	 * c'tor for initializing stock status fields (based on inherited stock members)
 	 * @param doNothing 
 	 * @param i 
-	 * @param date2 
 	 * @param date 
 	 * @param g 
 	 * @param f 
 	 * @param string 
 	 */
-	public StockStatus(String string, float Ask, float Bid, Date date1,int newStockQuntity, ALGO_RECOMMENDATION recom) {
-		super(string, Ask, Bid, date1);
-		// TODO Auto-generated constructor stub
-		stockQuantity = newStockQuntity;
-		recommendation = recom;
+	public StockStatus(String string, float f, float g, Date date, int i, Enum<ALGO_RECOMMENDATION> doNothing) {
+		stockSymbol = "None";
+		ask = 0;
+		bid = 0;
+		recommendation = ALGO_RECOMMENDATION.DO_NOTHING;
+		stockQuantity = 0;
 	}
 
 	/**
@@ -38,8 +38,30 @@ public class StockStatus extends Stock  {
 	 * 
 	 * @param stockStatus
 	 */
-	
-	
+	public StockStatus(StockStatus stockStatus) {
+		setSymbol(stockStatus.getStockSymbol());
+		setAsk(stockStatus.getAsk());
+		setBid(stockStatus.getBid());
+		this.date = new Date(stockStatus.date.getTime());
+		setRecommendation(stockStatus.recommendation);
+		setStockQuantity(stockStatus.stockQuantity);
+	}
+	/**
+	 * copy c'tor for filling stock status fields according to stock members
+	 * 
+	 * @param Symbol
+	 * @param ask
+	 * @param bid
+	 * @param date
+	 */
+	public StockStatus(String Symbol, float ask, float bid, Date date) {
+		this(null);
+		setSymbol(Symbol);
+		setAsk(ask);
+		setBid(bid);
+		setDate(new Date(date.getTime()));
+	}
+
 	public ALGO_RECOMMENDATION getRecommendation() {
 		return recommendation;
 	}
@@ -49,10 +71,7 @@ public class StockStatus extends Stock  {
 	public int getStockQuantity() {
 		return stockQuantity;
 	}
-	
 	public void setStockQuantity(int stockQuantity) {
 		this.stockQuantity = stockQuantity;
 	}
-	
-	
 }

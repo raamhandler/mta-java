@@ -27,13 +27,12 @@ import com.mta.javacourse.model.StockStatus;
 	 * 
 	 * @return
 	 */
-	public Portfolio getPortfolio() throws StockAlreadyExistsException, PortfolioFullException, BalanceException, StockNotExistException,StockNotEnoughException{
+public Portfolio getPortfolio() throws StockAlreadyExistsException, PortfolioFullException, BalanceException, StockNotExistException{
 		
-		myPortfolio = new Portfolio ( new StockStatus[MAX_PROTFOLIO_SIZE], 0, "UNKNOWE",0);
+		myPortfolio = new Portfolio( new StockStatus[MAX_PROTFOLIO_SIZE], 0, "UNKNOWE",0);
 		StockStatus stock1,stock2, stock3;
 		
 		Date date = new Date();
-		
 		stock1 = new StockStatus("PIH",(float)10,(float)8.5,date,0,ALGO_RECOMMENDATION.DO_NOTHING);
 		myPortfolio.addStock(stock1);
 		
