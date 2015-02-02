@@ -15,113 +15,88 @@ public class Stock {
 	protected String stockSymbol;
     protected float ask;
 	protected float bid;
+	protected Date date;
+	protected transient SimpleDateFormat sdf;
+
+	//protected SimpleDateFormat sdf;
+
+
+	/**
+	 * Constructor
+	 * The constructor is used to initialize members with default values.
+	 *
+	 */
+	public Stock() {
+		stockSymbol="noting";
+		bid=0;
+		ask=0;
+		date = new Date();
+		sdf = new SimpleDateFormat("dd/MM/yy");
+	}
+
+	/**
+	 * Copy constructor
+	 * The copy constructor is used to duplicate an instance with all of his members.
+	 *@param stock
+	 */
+	public Stock (Stock stock){
+
+		date = new Date();
+		sdf = new SimpleDateFormat("dd/MM/yy");
+		setSymbol(stock.getSymbol());
+		setBid(stock.getBid());
+		setAsk(stock.getAsk());
+		setDate(new Date(stock.date.getTime()));
+	}
+
+
+	// getters
+	public String getSymbol( ) {
+		return stockSymbol;
+	}
+	public float getBid() {
+		return bid;	
+	}
 	public float getAsk() {
 		return ask;
 	}
-
-	public Calendar getCal() {
-		return cal;
-	}
-
-	public void setCal(Calendar cal) {
-		this.cal = cal;
-	}
-
-	public DateFormat getDateFt() {
-		return dateFt;
-	}
-
-	public void setDateFt(DateFormat dateFt) {
-		this.dateFt = dateFt;
-	}
-
-	public void setAsk(float ask) {
-		this.ask = ask;
-	}
-
-	protected  java.util.Date date;
-	protected  float quantity;
-	
-	protected Calendar cal = Calendar.getInstance();
-	protected java.util.Date date = cal.getTime(); 
-
-	DateFormat dateFt = new SimpleDateFormat("dd/MM/yy");
-
-	
-	public float getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(float quantity) {
-		this.quantity = quantity;
-	}
-
-	public Stock() {
-		this.stockSymbol = "";
-		this.ask = 0;
-		this.bid = 0;
-	}
-
-
-
-	// copy c`tor:
-	
-	public Stock (String symbol, float ask, float bid, Date date)
-	{
-		this();
-		setSymbol(symbol);
-		setAsk(ask);
-		setBid(bid);
-		setDate(date);
-	}
-	
-	public Stock (Stock stock)
-	{
-		this (stock.getStockSymbol(), stock.getAsk(), stock.getBid(), stock.getDate());
-	}
-	
-	
-	//  Getter & Setter:
-	
-	public String stockSymbol() {
-         return stockSymbol;
-	}
-	public String getStockSymbol() {
-		return stockSymbol;
-	}
-	public void setStockSymbol(String stockSymbol) {
-		this.stockSymbol = stockSymbol;
-	}
-
-	public float getBid() {
-		return bid;
-	}
-	public void setSymbol(String symbol) {
-		 stockSymbol = symbol;
-	} 
-	 public java.util.Date getDate() {
+	public Date getDate(){
 		return date;
 	}
-	public void setDate(java.util.Date date) {
-		this.date = date;
+
+	//setters
+	public void setSymbol(String SymbolValue){
+		stockSymbol=SymbolValue;
 	}
 
-	public void setBid(float bid) {
-		this.bid = bid;
-	} 
- 	
- 	public String getHtmlDescription()
- 	{ 		
-         String stockHtmlDetailsString =
-        		 "<b>Stock symbol</b>: "+getStockSymbol()
-        		 + "<b> Stock Ask</b>: " +getAsk()
-        		 + "<b> Bid</b>: " +getBid()
-        		 + "<b> Stock Date</b>: " +getDate();
-         return stockHtmlDetailsString;
- 	}
+	public void setBid(float bidValue){
 
+		bid=bidValue;
+
+	}
+	public void setAsk(float askValue){
+
+		ask=askValue;
+
+	}
+	 public void setDate(Date date) 
+	 {
+         this.date = date;
+	 }
+
+	/**
+	 * getHtmlDescription()
+	 * This function is used to print the data of one stock at a time.
+	 * @param none
+	 * @return string with the information regarding the stock.
+	 *
+	 */
+	public String getHtmlDescription(){
+		String stockHtmlDetailsString = new String ("<b>Stock symbol</b>: "+getSymbol()+
+				"<b>, ask</b>: "+getAsk()+
+				"<b>, bid</b>: "+getBid()+
+				"<b>, date</b>: "+sdf.format(getDate()));
+		return stockHtmlDetailsString;
+	}
 }
-	
-	
-
 

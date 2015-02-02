@@ -4,52 +4,45 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mta.javacourse.dto.PortfolioDto;
+import com.mta.javacourse.dto.PortfolioTotalStatus;
 import com.mta.javacourse.exception.BalanceException;
 import com.mta.javacourse.exception.PortfolioFullException;
 import com.mta.javacourse.exception.StockAlreadyExistsException;
 import com.mta.javacourse.exception.StockNotExistException;
 import com.mta.javacourse.model.Portfolio;
+import com.mta.javacourse.model.StockStatus;
 import com.mta.javacourse.service.PortfolioService;
  
 
-
-
-
-
-
 import java.io.IOException;
- 
-	@SuppressWarnings("serial")
-	public class PortfolioServlet extends HttpServlet {
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletException;
 
 
-		public void doGet(HttpServletRequest req, HttpServletResponse resp)
-				
-				throws IOException{
-			
-			resp.setContentType("text/html");
-			PortfolioService portfolioService = new PortfolioService();
-			Portfolio portfolio1;
-			try{
-				portfolio1 = portfolioService.getPortfolio();
-				resp.getWriter().println(portfolio1.getHtmlString());	
-			}
-			catch (PortfolioFullException e) {
-				resp.getWriter().println("Sorry, You had reached maximum portfolio size!!!");
-			}
-			catch(StockAlreadyExistsException ee) {
-				resp.getWriter().println("Sorry, Stock already exists!!!");			
-			}
-			catch(BalanceException eee) {
-				resp.getWriter().println("Sorry, You do not have enough balane to buy this stock!!!");			
-			}
-			
-			catch(StockNotExistException eeeee) {
-				resp.getWriter().println("Sorry, The stock does not exist!!!");			
-			}
-			
-					
+public class PortfolioServlet extends AbstractAlgoServlet {
 
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		resp.setContentType("application/json");
+		
+		PortfolioTotalStatus[] totalStatus = portfolioService.getPortfolioTotalStatus();
+		StockStatus[] stockStatusArray = portfolioService.getPortfolio().getStocks();
+		List<StockStatus> stockStatusList = new ArrayList<>();
+		for (StockStatus ss : stockStatusArray) {
+			if(ss != null)
+				stockStatusList.add(ss);
 		}
-
+		
+		PortfolioDto pDto = new PortfolioDto();
+		pDto.setTitle(portfolioService.getPortfolio().getTitle());
+		pDto.setTotalStatus(totalStatus);
+		pDto.setStockTable(stockStatusList);
+		resp.getWriter().print(withNullObjects().toJson(pDto));
 	}
+}

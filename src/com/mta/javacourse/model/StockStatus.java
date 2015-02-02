@@ -10,68 +10,45 @@ import com.mta.javacourse.model.Portfolio.ALGO_RECOMMENDATION;
  * @author Raam Handler
  *
  */
-public class StockStatus extends Stock  {
+	public class StockStatus extends Stock {
 
 	private ALGO_RECOMMENDATION recommendation;
-	private int stockQuantity;
-
+	protected int stockQuantity;
+	
 	/**
-	 * 
-	 * c'tor for initializing stock status fields (based on inherited stock members)
-	 * @param doNothing 
-	 * @param i 
-	 * @param date 
-	 * @param g 
-	 * @param f 
-	 * @param string 
+	 * This constructor is used to initialize members in StockStatus
 	 */
-	public StockStatus(String string, float f, float g, Date date, int i, Enum<ALGO_RECOMMENDATION> doNothing) {
-		stockSymbol = "None";
-		ask = 0;
-		bid = 0;
-		recommendation = ALGO_RECOMMENDATION.DO_NOTHING;
-		stockQuantity = 0;
+	public StockStatus (){
+		
+		super();
+		recommendation=ALGO_RECOMMENDATION.DO_NOTHING;
+		stockQuantity=0;
 	}
-
 	/**
-	 * copy c'tor for stock status
-	 * 
+	 * The copy constructor is used to duplicate an instance with all of his members.
 	 * @param stockStatus
 	 */
-	public StockStatus(StockStatus stockStatus) {
-		setSymbol(stockStatus.getStockSymbol());
-		setAsk(stockStatus.getAsk());
-		setBid(stockStatus.getBid());
-		this.date = new Date(stockStatus.date.getTime());
-		setRecommendation(stockStatus.recommendation);
-		setStockQuantity(stockStatus.stockQuantity);
+	public StockStatus (StockStatus stockStatus){
+		
+		super(stockStatus);
+		recommendation=stockStatus.getRecommendation();
+		stockQuantity=stockStatus.getStockQuantity();
 	}
-	/**
-	 * copy c'tor for filling stock status fields according to stock members
-	 * 
-	 * @param Symbol
-	 * @param ask
-	 * @param bid
-	 * @param date
-	 */
-	public StockStatus(String Symbol, float ask, float bid, Date date) {
-		this(null);
-		setSymbol(Symbol);
-		setAsk(ask);
-		setBid(bid);
-		setDate(new Date(date.getTime()));
+	
+	public StockStatus(Stock stock) {
+		super(stock);
 	}
-
 	public ALGO_RECOMMENDATION getRecommendation() {
 		return recommendation;
-	}
-	public void setRecommendation(ALGO_RECOMMENDATION recommendation) {
-		this.recommendation = recommendation;
 	}
 	public int getStockQuantity() {
 		return stockQuantity;
 	}
+	public void setRecommendation(ALGO_RECOMMENDATION recommendation) {
+		this.recommendation = recommendation;
+	}
 	public void setStockQuantity(int stockQuantity) {
 		this.stockQuantity = stockQuantity;
-	}
+	}	
+	
 }
