@@ -1,15 +1,22 @@
 package com.mta.javacourse.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Logger;
 
 import com.mta.javacourse.dto.PortfolioTotalStatus;
 import com.mta.javacourse.exception.BalanceException;
+import com.mta.javacourse.exception.IllegalQuantityException;
 import com.mta.javacourse.exception.PortfolioFullException;
 import com.mta.javacourse.exception.StockAlreadyExistsException;
 import com.mta.javacourse.exception.StockNotExistException;
+import com.mta.javacourse.exception.SymbolNotFoundInNasdaq;
 import com.mta.javacourse.model.Portfolio;
 import com.mta.javacourse.model.Portfolio.ALGO_RECOMMENDATION;
 import com.mta.javacourse.model.Stock;

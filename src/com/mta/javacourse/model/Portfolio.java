@@ -1,15 +1,13 @@
 package com.mta.javacourse.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
-
 import com.mta.javacourse.exception.BalanceException;
 import com.mta.javacourse.exception.IllegalQuantityException;
 import com.mta.javacourse.exception.PortfolioFullException;
 import com.mta.javacourse.exception.StockAlreadyExistsException;
 import com.mta.javacourse.exception.StockNotExistException;
+import com.mta.javacourse.service.PortfolioService;
 
 /**
  * Class :  Creating a stock & portfolio 
